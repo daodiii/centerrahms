@@ -362,6 +362,53 @@ function QuickActionsCard() {
   );
 }
 
+/* ─── Dashboard: Jummah Banner ─── */
+function JummahCard({ schedule, t }: { schedule: ReturnType<typeof usePrayerTimes>['schedule']; t: ReturnType<typeof useTranslations> }) {
+  return (
+    <GlassCard className="col-span-12">
+      <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+        {/* Left: icon + info */}
+        <div className="flex items-center gap-4">
+          <div className="w-12 h-12 rounded-full bg-[rgba(var(--color-primary-rgb),0.12)] flex items-center justify-center flex-shrink-0 border border-[rgba(var(--color-primary-rgb),0.2)]">
+            <span className="material-icons text-primary text-2xl">groups</span>
+          </div>
+          <div>
+            <h4 className="text-base font-bold text-[var(--color-text)]">
+              {t('jummah')}
+            </h4>
+            <p className="text-sm text-[var(--color-text-muted)]">
+              {t('khutbahAt', { time: schedule.jummah.khutbah })} •{' '}
+              {t('prayerAt', { time: schedule.jummah.prayer })}
+            </p>
+          </div>
+        </div>
+
+        {/* Right: action buttons */}
+        <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
+          <a
+            href="/Rahma_Kalendar.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex-1 md:flex-none flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl border border-[rgba(var(--color-primary-rgb),0.2)] text-[var(--color-text)] hover:bg-[rgba(var(--color-primary-rgb),0.08)] transition-all font-medium text-sm whitespace-nowrap"
+          >
+            <span className="material-symbols-outlined text-base">calendar_today</span>
+            {t('downloadCalendar')}
+          </a>
+          <a
+            href="https://maps.google.com/?q=Gronland+12,Oslo"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex-1 md:flex-none flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-primary text-[var(--color-bg)] hover:bg-primary-dark transition-colors font-bold text-sm whitespace-nowrap shadow-[0_0_15px_rgba(var(--color-primary-rgb),0.2)]"
+          >
+            <span className="material-symbols-outlined text-base">location_on</span>
+            {t('getDirections')}
+          </a>
+        </div>
+      </div>
+    </GlassCard>
+  );
+}
+
 /* ─── Main Hero Section ─── */
 export default function HeroSection() {
   const t = useTranslations('hero');
@@ -473,7 +520,8 @@ export default function HeroSection() {
                   ))}
                 </div>
 
-                {/* Row 2: Jummah full-width — added in Task 3 */}
+                {/* Row 2: Jummah full-width */}
+                <JummahCard schedule={schedule} t={tPrayer} />
 
                 {/* Row 3: Project Showcase | Calendar | Countdown */}
                 <ProjectShowcaseCard />
