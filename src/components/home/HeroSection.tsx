@@ -366,67 +366,175 @@ export default function HeroSection() {
   const PRAYER_ORDER: PrayerName[] = ['fajr', 'dhuhr', 'asr', 'maghrib', 'isha'];
 
   return (
-    <section className="relative min-h-screen overflow-hidden bg-[var(--color-bg)]">
-      {/* Subtle Islamic pattern overlay */}
-      <div className="absolute inset-0 pattern-islamic opacity-10 pointer-events-none" aria-hidden="true" />
+    <>
+      {/* ══════════════════════════════════════════
+          SPLIT HERO — above the fold
+      ══════════════════════════════════════════ */}
+      <section className="relative min-h-screen overflow-hidden bg-[var(--color-bg)] flex flex-col lg:flex-row">
 
-      {/* Content wrapper */}
-      <div className="relative z-10 flex flex-col items-center px-4 pt-28 pb-8 md:pt-36 md:pb-10">
+        {/* ── LEFT: Content panel ── */}
+        <div className="relative z-10 flex flex-col justify-center px-8 md:px-16 pt-32 pb-12 lg:pt-0 lg:pb-0 lg:w-1/2 xl:w-[52%]">
+          {/* Islamic pattern — subtle, left panel only */}
+          <div className="absolute inset-0 pattern-islamic opacity-[0.06] pointer-events-none" aria-hidden="true" />
 
-        {/* ── Hero Text ── */}
-        <div
-          className="text-center max-w-3xl mx-auto mb-12 md:mb-16"
-          style={{ animation: 'hero-fade-up 0.8s ease-out both' }}
-        >
-          <h1 className="text-2xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-[var(--color-text)] mb-5 leading-[1.1] tracking-tight">
-            {t('welcome')}
-          </h1>
-          <p className="text-[var(--color-text-muted)] text-base sm:text-lg md:text-xl max-w-xl mx-auto mb-8 leading-relaxed">
-            {t('subtitle')}
-          </p>
-          <div className="flex flex-col sm:flex-row items-center gap-4 justify-center">
-            <Link
-              href="/contact"
-              className="group inline-flex items-center justify-center gap-2 w-full sm:w-64 py-4 bg-primary hover:bg-primary-dark text-[var(--color-bg)] font-semibold rounded-full transition-all duration-300 shadow-[0_0_20px_rgba(var(--color-primary-rgb),0.2)] hover:shadow-[0_0_35px_rgba(var(--color-primary-rgb),0.4)]"
-            >
-              {t('ctaVisit')}
-              <span className="material-symbols-outlined group-hover:translate-x-1 transition-transform duration-200">
-                arrow_forward
+          <div
+            className="relative max-w-xl"
+            style={{ animation: 'hero-fade-up 0.8s ease-out both' }}
+          >
+            {/* Eyebrow badge */}
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[rgba(var(--color-primary-rgb),0.25)] bg-[rgba(var(--color-primary-rgb),0.06)] mb-6">
+              <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+              <span className="text-xs font-semibold uppercase tracking-widest text-primary">
+                Est. Oslo 1995
               </span>
-            </Link>
+            </div>
 
-            <Link
-              href="/become-member"
-              className="group inline-flex items-center justify-center gap-2 w-full sm:w-64 py-4 bg-primary hover:bg-primary-dark text-[var(--color-bg)] border border-primary font-semibold rounded-full transition-all duration-300"
-            >
-              {t('ctaJoin')}
-              <span className="material-symbols-outlined group-hover:translate-x-1 transition-transform duration-200">
-                person_add
-              </span>
-            </Link>
+            {/* Headline */}
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-[var(--color-text)] mb-6 leading-[1.05] tracking-tight font-display">
+              {t('welcome')}
+            </h1>
 
-            <a
-              href="/Rahma_Kalendar.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group inline-flex items-center justify-center gap-2 w-full sm:w-64 py-4 bg-primary hover:bg-primary-dark text-[var(--color-bg)] border border-primary font-semibold rounded-full transition-all duration-300"
-            >
-              {t('ctaRamadan')}
-              <span className="material-symbols-outlined group-hover:translate-x-1 transition-transform duration-200">
-                calendar_today
-              </span>
-            </a>
+            {/* Subtitle */}
+            <p className="text-[var(--color-text-muted)] text-lg md:text-xl mb-10 leading-relaxed max-w-md">
+              {t('subtitle')}
+            </p>
+
+            {/* CTAs */}
+            <div className="flex flex-col sm:flex-row items-start gap-4">
+              <Link
+                href="/contact"
+                className="group inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary hover:bg-primary-dark text-[var(--color-bg)] font-semibold rounded-full transition-all duration-300 shadow-[0_0_20px_rgba(var(--color-primary-rgb),0.25)] hover:shadow-[0_0_35px_rgba(var(--color-primary-rgb),0.45)]"
+              >
+                {t('ctaVisit')}
+                <span className="material-symbols-outlined group-hover:translate-x-1 transition-transform duration-200">
+                  arrow_forward
+                </span>
+              </Link>
+
+              <Link
+                href="/become-member"
+                className="group inline-flex items-center justify-center gap-2 px-8 py-4 bg-transparent border border-[rgba(var(--color-primary-rgb),0.35)] hover:bg-[rgba(var(--color-primary-rgb),0.08)] text-[var(--color-text)] font-semibold rounded-full transition-all duration-300"
+              >
+                {t('ctaJoin')}
+                <span className="material-symbols-outlined group-hover:translate-x-1 transition-transform duration-200">
+                  person_add
+                </span>
+              </Link>
+            </div>
+
+            {/* Ramadan calendar link — subtle text link below CTAs */}
+            <div className="mt-6">
+              <a
+                href="/Rahma_Kalendar.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-sm text-[var(--color-text-muted)] hover:text-primary transition-colors group"
+              >
+                <span className="material-symbols-outlined text-base group-hover:scale-110 transition-transform">
+                  calendar_today
+                </span>
+                {t('ctaRamadan')}
+              </a>
+            </div>
+
+            {/* Quick stats strip */}
+            <div className="mt-12 flex items-center gap-8 pt-8 border-t border-[rgba(var(--color-primary-rgb),0.12)]">
+              <div>
+                <div className="text-2xl font-bold text-[var(--color-text)] font-display">30+</div>
+                <div className="text-xs text-[var(--color-text-muted)] uppercase tracking-wide mt-0.5">Years</div>
+              </div>
+              <div className="w-px h-8 bg-[rgba(var(--color-primary-rgb),0.15)]" />
+              <div>
+                <div className="text-2xl font-bold text-[var(--color-text)] font-display">5</div>
+                <div className="text-xs text-[var(--color-text-muted)] uppercase tracking-wide mt-0.5">Daily Prayers</div>
+              </div>
+              <div className="w-px h-8 bg-[rgba(var(--color-primary-rgb),0.15)]" />
+              <div>
+                <div className="text-2xl font-bold text-[var(--color-text)] font-display">Oslo</div>
+                <div className="text-xs text-[var(--color-text-muted)] uppercase tracking-wide mt-0.5">Norway</div>
+              </div>
+            </div>
           </div>
         </div>
 
-        {/* ── Dashboard Composite ── */}
+        {/* ── DIVIDER: Gold arc SVG ── */}
+        <div
+          className="hidden lg:block absolute top-0 bottom-0 z-20 pointer-events-none"
+          style={{ left: 'calc(52% - 40px)', width: '80px' }}
+          aria-hidden="true"
+        >
+          <svg
+            viewBox="0 0 80 800"
+            preserveAspectRatio="none"
+            className="w-full h-full"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <defs>
+              <linearGradient id="arcFade" x1="0" x2="1" y1="0" y2="0">
+                <stop offset="0%" stopColor="var(--color-bg)" stopOpacity="1" />
+                <stop offset="100%" stopColor="var(--color-bg)" stopOpacity="0" />
+              </linearGradient>
+            </defs>
+            <rect x="0" y="0" width="60" height="800" fill="url(#arcFade)" />
+            <path
+              d="M 40 0 Q 20 400 40 800"
+              stroke="#C6A255"
+              strokeWidth="1.5"
+              strokeOpacity="0.5"
+              fill="none"
+            />
+          </svg>
+        </div>
+
+        {/* ── RIGHT: Photo panel ── */}
+        <div className="relative lg:w-1/2 xl:w-[48%] min-h-[50vh] lg:min-h-screen">
+          <img
+            src="/hero-children.jpg"
+            alt="Children from the Masjid Rahma community enjoying a day out together in Oslo"
+            className="absolute inset-0 w-full h-full object-cover object-center"
+            loading="eager"
+          />
+          {/* Subtle top & bottom fade to blend with page */}
+          <div
+            className="absolute inset-x-0 top-0 h-32 pointer-events-none"
+            style={{ background: 'linear-gradient(to bottom, var(--color-bg), transparent)' }}
+            aria-hidden="true"
+          />
+          <div
+            className="absolute inset-x-0 bottom-0 h-32 pointer-events-none"
+            style={{ background: 'linear-gradient(to top, var(--color-bg), transparent)' }}
+            aria-hidden="true"
+          />
+
+          {/* Floating next-prayer pill on the photo */}
+          <div className="absolute top-8 right-6 z-10 hidden md:flex items-center gap-2 px-4 py-2 rounded-full backdrop-blur-md bg-[rgba(16,34,26,0.65)] border border-[rgba(17,212,131,0.25)] shadow-lg">
+            <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+            <span className="text-xs font-semibold text-white tracking-wide">
+              {nextPrayer ? `${nextPrayer.name.charAt(0).toUpperCase() + nextPrayer.name.slice(1)} coming up` : 'Isha coming up'}
+            </span>
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════
+          DASHBOARD BENTO — below the fold
+      ══════════════════════════════════════════ */}
+      <section className="relative bg-[var(--color-bg)] px-4 py-12 md:py-16">
         <div
           className="w-full max-w-5xl mx-auto"
           style={{ animation: 'dashboard-rise 1s ease-out 0.3s both' }}
         >
+          {/* Section label */}
+          <div className="flex items-center gap-3 mb-6">
+            <div className="h-px flex-1 bg-[rgba(var(--color-primary-rgb),0.12)]" />
+            <span className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-muted)]">
+              Prayer Times & Updates
+            </span>
+            <div className="h-px flex-1 bg-[rgba(var(--color-primary-rgb),0.12)]" />
+          </div>
+
           {/* Outer glass container with animated border */}
           <div className="relative rounded-3xl p-[1px] overflow-hidden">
-            {/* Outer spinning border */}
             <div
               className="absolute inset-[-50%]"
               style={{
@@ -438,7 +546,6 @@ export default function HeroSection() {
 
             {/* Dashboard inner content */}
             <div className="relative hero-glass rounded-3xl p-4 md:p-6">
-              {/* Top glow line */}
               <div
                 className="absolute top-0 left-1/2 -translate-x-1/2 w-2/3 h-[1px]"
                 style={{
@@ -479,7 +586,7 @@ export default function HeroSection() {
             </div>
           </div>
 
-          {/* Bottom ambient shadow / glow under the dashboard */}
+          {/* Bottom ambient glow */}
           <div
             className="mx-auto mt-[-2px] w-3/4 h-16 opacity-30 pointer-events-none"
             style={{
@@ -489,7 +596,7 @@ export default function HeroSection() {
             aria-hidden="true"
           />
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }
