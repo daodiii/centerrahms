@@ -7,6 +7,7 @@ import { usePrayerTimes } from '@/hooks/usePrayerTimes';
 import { PRAYER_ICONS, PROJECTS } from '@/lib/constants';
 import { Link } from '@/i18n/navigation';
 import CalendarCard from './CalendarCard';
+import PrayerCard from './PrayerCard';
 import type { PrayerName } from '@/types/prayer';
 import { useEffect, useState } from 'react';
 
@@ -270,57 +271,6 @@ function ProjectShowcaseCard() {
 }
 
 
-/* ─── Dashboard: Prayer Times Grid ─── */
-function PrayerTimesCard() {
-  const t = useTranslations('prayer');
-  const { schedule } = usePrayerTimes();
-  const nextPrayer = useNextPrayer(schedule);
-  const prayers: PrayerName[] = ['fajr', 'dhuhr', 'asr', 'maghrib', 'isha'];
-
-  return (
-    <GlassCard className="col-span-12 md:col-span-5">
-      <div className="text-xs uppercase tracking-widest text-[var(--color-text-muted)] mb-3">
-        {t('sectionLabel')}
-      </div>
-      <div className="space-y-1.5">
-        {prayers.map((name) => {
-          const isActive = nextPrayer?.name === name;
-          return (
-            <div
-              key={name}
-              className={`flex items-center gap-2.5 px-2.5 py-1.5 rounded-lg transition-all duration-200 ${isActive
-                ? 'bg-[rgba(var(--color-primary-rgb),0.12)] border border-[rgba(var(--color-primary-rgb),0.2)]'
-                : 'border border-transparent'
-                }`}
-            >
-              <span
-                className={`material-symbols-outlined text-base ${isActive ? 'text-primary text-glow' : 'text-[var(--color-text-muted)]'
-                  }`}
-              >
-                {PRAYER_ICONS[name]}
-              </span>
-              <span
-                className={`text-sm flex-1 ${isActive ? 'text-[var(--color-text)] font-semibold' : 'text-[var(--color-text-muted)]'
-                  }`}
-              >
-                {t(name)}
-              </span>
-              <span
-                className={`font-mono text-sm tabular-nums ${isActive ? 'text-primary font-bold' : 'text-[var(--color-text)]'
-                  }`}
-              >
-                {schedule.prayers[name].time}
-              </span>
-              {isActive && (
-                <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse-slow" />
-              )}
-            </div>
-          );
-        })}
-      </div>
-    </GlassCard>
-  );
-}
 
 /* ─── Dashboard: Countdown Progress ─── */
 function CountdownCard() {
@@ -508,13 +458,29 @@ export default function HeroSection() {
 
               {/* Bento grid */}
               <div className="grid grid-cols-12 gap-3 md:gap-4">
-                {/* Row 1: Next Prayer | Prayer Times | Countdown */}
+                {/* Row 1: 5 Prayer Time Cards */}
+                <div className="col-span-12 grid grid-cols-2 md:grid-cols-5 gap-3 md:gap-4">
+                  {PRAYER_ORDER.map((name) => (
+                    <PrayerCard
+                      key={name}
+                      name={name}
+                      time={schedule.prayers[name].time}
+                      iqamah={schedule.prayers[name].iqamah}
+                      icon={PRAYER_ICONS[name]}
+                      isActive={nextPrayer?.name === name}
+                      label={tPrayer(name)}
+                    />
+                  ))}
+                </div>
+
+                {/* Row 2: Jummah full-width — added in Task 3 */}
+
+                {/* Row 3: Project Showcase | Calendar | Countdown */}
                 <ProjectShowcaseCard />
-                <PrayerTimesCard />
+                <CalendarCard />
                 <CountdownCard />
 
-                {/* Row 2: Event | Quick Actions */}
-                <CalendarCard />
+                {/* Row 4: Quick Actions */}
                 <QuickActionsCard />
               </div>
             </div>
