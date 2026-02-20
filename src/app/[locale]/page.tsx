@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 import HeroSection from '@/components/home/HeroSection';
-import QuickLinksGrid from '@/components/home/QuickLinksGrid';
 
 type Props = { params: Promise<{ locale: string }> };
 
