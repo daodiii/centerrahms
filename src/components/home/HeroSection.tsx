@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { useCountdown } from '@/hooks/useCountdown';
 import { useNextPrayer } from '@/hooks/useNextPrayer';
@@ -11,6 +12,8 @@ import CalendarCard from './CalendarCard';
 import PrayerCard from './PrayerCard';
 import type { PrayerName } from '@/types/prayer';
 import { useEffect, useState } from 'react';
+
+const PRAYER_ORDER: PrayerName[] = ['fajr', 'dhuhr', 'asr', 'maghrib', 'isha'];
 
 /* ─── Animated border wrapper ─── */
 function GlassCard({
@@ -54,13 +57,6 @@ function CircularProgress({ percentage, size = 64 }: { percentage: number; size?
   const strokeWidth = 5;
   const radius = (size - strokeWidth) / 2;
   const circumference = 2 * Math.PI * radius;
-  // Invert the offset so it fills up or empties based on percentage
-  // If we want it to act as a countdown (emptying), we can adjustments here.
-  // For time passed: fills up. For time remaining: empties.
-  // Let's make it "time remaining" style (starts full, goes to empty) or "time passed" (starts empty, goes full).
-  // Usually countdowns "drain". Let's assume drain.
-  // If percentage is "percent of time passed", then drain = 100 - passed.
-  // Let's stick to: input percentage is "how much to show".
   const offset = circumference - (percentage / 100) * circumference;
 
   return (
@@ -90,23 +86,24 @@ function CircularProgress({ percentage, size = 64 }: { percentage: number; size?
 }
 
 /* ─── Dashboard: Rotating Project Showcase ─── */
-/* ─── Dashboard: Rotating Project Showcase ─── */
 function ProjectShowcaseCard() {
   const t = useTranslations();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
 
   useEffect(() => {
-    // Longer interval to let users read
+    let timeoutId: ReturnType<typeof setTimeout>;
     const interval = setInterval(() => {
       setIsAnimating(true);
-      setTimeout(() => {
+      timeoutId = setTimeout(() => {
         setCurrentIndex((prev) => (prev + 1) % PROJECTS.length);
         setIsAnimating(false);
       }, 300);
     }, 5000);
-
-    return () => clearInterval(interval);
+    return () => {
+      clearInterval(interval);
+      clearTimeout(timeoutId);
+    };
   }, []);
 
   const project = PROJECTS[currentIndex];
@@ -183,44 +180,6 @@ function CountdownCard() {
   const { schedule } = usePrayerTimes();
   const nextPrayer = useNextPrayer(schedule);
   const countdown = useCountdown(nextPrayer?.time ?? null);
-  const [progress, setProgress] = useState(0);
-
-  // Calculate progress for the circular indicator
-  useEffect(() => {
-    if (!nextPrayer) return;
-
-    const now = new Date();
-    const [hours, minutes] = nextPrayer.time.split(':').map(Number);
-    const nextTime = new Date();
-    nextTime.setHours(hours, minutes, 0, 0);
-
-    // If next prayer is tomorrow (e.g. Fajr), add a day
-    if (nextTime < now) {
-      nextTime.setDate(nextTime.getDate() + 1);
-    }
-
-    // We need a reference point for "start time" to calculate percentage.
-    // For simplicity, let's assume a fixed window or calculate from previous prayer.
-    // But since we don't have previous prayer easily, let's just make it a visual indicator 
-    // that pulses or fills based on seconds remaining within the last hour/minute?
-    // OR: Just make it a full circle that acts as a decorative frame for the countdown.
-    // Let's try to estimate "percentage remaining of the current hour" or something dynamic?
-    // Actually, users usually like "time passed since last prayer" vs "total time".
-    // For now, let's just set it to a static "75%" or animate it purely for visual effect if we can't derive exact start.
-    // BETTER: Use (Total Seconds - Seconds Remaining) / Total Seconds.
-    // Let's just make it "seconds" based for a smooth animation or just fixed 100% with pulse.
-    // Actually, the user asked to "put it in the same box that has the new mask thing to adjust the size".
-    // I'll make it fill based on: 100% at 00:00:00 left. 
-    // But that's hard without a start time.
-    // Let's just use a visual effect. A full circle is fine.
-
-    // Let's use seconds to drive a subtle animation?
-    const seconds = now.getSeconds();
-    const ms = now.getMilliseconds();
-    // distinct pulse
-    setProgress(100);
-
-  }, [nextPrayer]);
 
   return (
     <GlassCard className="col-span-12 md:col-span-3 relative">
@@ -318,7 +277,7 @@ function JummahCard({ schedule, t }: { schedule: ReturnType<typeof usePrayerTime
         {/* Left: icon + info */}
         <div className="flex items-center gap-4">
           <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center flex-shrink-0">
-            <span className="material-icons text-[var(--color-bg)] text-2xl">groups</span>
+            <span className="material-symbols-outlined text-[var(--color-bg)] text-2xl">groups</span>
           </div>
           <div>
             <h4 className="text-base font-bold text-[var(--color-text)]">
@@ -363,7 +322,6 @@ export default function HeroSection() {
   const tPrayer = useTranslations('prayer');
   const { schedule } = usePrayerTimes();
   const nextPrayer = useNextPrayer(schedule);
-  const PRAYER_ORDER: PrayerName[] = ['fajr', 'dhuhr', 'asr', 'maghrib', 'isha'];
 
   return (
     <>
@@ -488,11 +446,13 @@ export default function HeroSection() {
 
         {/* ── RIGHT: Photo panel ── */}
         <div className="relative lg:w-1/2 xl:w-[48%] min-h-[50vh] lg:min-h-screen">
-          <img
+          <Image
             src="/hero-children.jpg"
             alt="Children from the Masjid Rahma community enjoying a day out together in Oslo"
-            className="absolute inset-0 w-full h-full object-cover object-center"
-            loading="eager"
+            fill
+            priority
+            className="object-cover object-center"
+            sizes="(max-width: 1024px) 100vw, 48vw"
           />
           {/* Subtle top & bottom fade to blend with page */}
           <div
