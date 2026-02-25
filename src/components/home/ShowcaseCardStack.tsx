@@ -66,7 +66,7 @@ export default function ShowcaseCardStack() {
   }));
 
   return (
-    <section className="pt-3 pb-3 md:py-24 bg-[var(--color-bg)]">
+    <section className="pt-4 pb-4 md:py-24 bg-[var(--color-bg)]">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
           eyebrow={t('eyebrow')}
