@@ -1,12 +1,18 @@
 import Stripe from 'stripe';
 
-if (!process.env.STRIPE_SECRET_KEY) {
-  console.warn('STRIPE_SECRET_KEY not set - payments will not work');
-}
+let _stripe: Stripe | null = null;
 
-export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
-  apiVersion: '2025-04-30.basil' as any,
-});
+export function getStripe(): Stripe {
+  if (!_stripe) {
+    if (!process.env.STRIPE_SECRET_KEY) {
+      throw new Error('STRIPE_SECRET_KEY environment variable is not set');
+    }
+    _stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+      apiVersion: '2025-04-30.basil' as any,
+    });
+  }
+  return _stripe;
+}
 
 export async function createCheckoutSession(params: {
   amount: number;
@@ -19,7 +25,7 @@ export async function createCheckoutSession(params: {
   // For one-time: payment mode, for monthly: subscription mode
   if (params.frequency === 'monthly') {
     // Create a price for the subscription
-    const price = await stripe.prices.create({
+    const price = await getStripe().prices.create({
       unit_amount: params.amount * 100, // Convert to øre
       currency: params.currency,
       recurring: { interval: 'month' },
@@ -28,7 +34,7 @@ export async function createCheckoutSession(params: {
       },
     });
 
-    return stripe.checkout.sessions.create({
+    return getStripe().checkout.sessions.create({
       mode: 'subscription',
       line_items: [{ price: price.id, quantity: 1 }],
       success_url: params.successUrl,
@@ -37,7 +43,7 @@ export async function createCheckoutSession(params: {
     });
   }
 
-  return stripe.checkout.sessions.create({
+  return getStripe().checkout.sessions.create({
     mode: 'payment',
     line_items: [
       {
