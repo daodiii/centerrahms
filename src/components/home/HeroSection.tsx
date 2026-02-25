@@ -430,7 +430,7 @@ export default function HeroSection() {
   const PRAYER_ORDER: PrayerName[] = ['fajr', 'dhuhr', 'asr', 'maghrib', 'isha'];
 
   return (
-    <section className="relative min-h-screen overflow-hidden bg-[var(--color-bg)]">
+    <section className="relative md:min-h-screen overflow-hidden bg-[var(--color-bg)]">
       {/* Background layers */}
       <ParticleField />
       <AuroraBackground />
@@ -568,7 +568,7 @@ export default function HeroSection() {
 
           {/* Bottom ambient shadow / glow under the dashboard */}
           <div
-            className="mx-auto mt-[-2px] w-3/4 h-16 opacity-30 pointer-events-none"
+            className="mx-auto mt-[-2px] w-3/4 h-16 opacity-30 pointer-events-none hidden md:block"
             style={{
               background: 'radial-gradient(ellipse at center, rgba(var(--color-primary-rgb),0.25) 0%, transparent 70%)',
               filter: 'blur(20px)',
