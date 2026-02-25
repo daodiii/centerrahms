@@ -66,7 +66,7 @@ export default function ShowcaseCardStack() {
   }));
 
   return (
-    <section className="pt-4 pb-4 md:py-24 bg-[var(--color-bg)]">
+    <section className="pt-4 pb-4 md:pt-24 md:pb-32 bg-[var(--color-bg)]">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="hidden md:block relative z-10">
           <SectionHeader
@@ -76,7 +76,7 @@ export default function ShowcaseCardStack() {
           />
         </div>
 
-        <div className="md:mt-12">
+        <div className="md:mt-52">
           <CardStack cards={cards} />
         </div>
       </div>
