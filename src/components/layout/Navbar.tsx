@@ -125,7 +125,7 @@ export function Navbar() {
             <div className="hidden md:flex items-center gap-4">
               <ThemeToggle />
               <Link
-                href="/donate"
+                href="/new-mosque"
                 className="bg-primary text-[var(--color-bg)] px-6 py-2 rounded-full text-sm font-bold hover:scale-105 transition-transform duration-200 shadow-lg shadow-primary/20"
               >
                 {t('supportUs')}
@@ -192,7 +192,7 @@ export function Navbar() {
                 <ThemeToggle />
               </div>
               <Link
-                href="/donate"
+                href="/new-mosque"
                 onClick={() => setIsMobileMenuOpen(false)}
                 className="bg-primary text-[var(--color-bg)] px-6 py-3 rounded-full text-sm font-bold text-center hover:scale-105 transition-transform duration-200 shadow-lg shadow-primary/20"
               >

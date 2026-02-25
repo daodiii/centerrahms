@@ -1,7 +1,6 @@
 'use client';
 
-import { useEffect, useState, useCallback } from 'react';
-import Script from 'next/script';
+import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import Container from '@/components/ui/Container';
 import SectionHeader from '@/components/ui/SectionHeader';
@@ -25,7 +24,6 @@ function FacebookIcon() {
 function FeedSkeleton() {
   return (
     <div className="animate-pulse space-y-4" aria-label="Loading feed">
-      {/* Header skeleton */}
       <div className="flex items-center gap-3">
         <div className="w-10 h-10 rounded-full bg-[var(--color-border)]" />
         <div className="space-y-2 flex-1">
@@ -33,15 +31,12 @@ function FeedSkeleton() {
           <div className="h-2 w-20 rounded bg-[var(--color-border)]" />
         </div>
       </div>
-      {/* Text skeleton */}
       <div className="space-y-2">
         <div className="h-3 w-full rounded bg-[var(--color-border)]" />
         <div className="h-3 w-4/5 rounded bg-[var(--color-border)]" />
         <div className="h-3 w-3/5 rounded bg-[var(--color-border)]" />
       </div>
-      {/* Image skeleton */}
       <div className="h-48 w-full rounded-lg bg-[var(--color-border)]" />
-      {/* Action bar skeleton */}
       <div className="flex gap-6 pt-2">
         <div className="h-3 w-12 rounded bg-[var(--color-border)]" />
         <div className="h-3 w-16 rounded bg-[var(--color-border)]" />
@@ -51,45 +46,14 @@ function FeedSkeleton() {
   );
 }
 
-declare global {
-  interface Window {
-    FB?: {
-      XFBML: { parse: (element?: HTMLElement) => void };
-    };
-  }
-}
-
 export default function FacebookFeed() {
   const t = useTranslations('facebook');
   const [loaded, setLoaded] = useState(false);
-  const [isDark, setIsDark] = useState(true);
 
-  // Detect current theme from the <html> class
-  useEffect(() => {
-    const html = document.documentElement;
-    const checkTheme = () => setIsDark(html.classList.contains('dark'));
-    checkTheme();
-
-    const observer = new MutationObserver(checkTheme);
-    observer.observe(html, { attributes: true, attributeFilter: ['class'] });
-    return () => observer.disconnect();
-  }, []);
-
-  // Re-parse the Facebook plugin when theme changes (it needs to re-render)
-  const reparse = useCallback(() => {
-    if (window.FB?.XFBML) {
-      window.FB.XFBML.parse();
-    }
-  }, []);
-
-  useEffect(() => {
-    if (loaded) {
-      reparse();
-    }
-  }, [isDark, loaded, reparse]);
+  const iframeSrc = `https://www.facebook.com/plugins/page.php?href=${encodeURIComponent(FB_PAGE_URL)}&tabs=timeline&width=500&height=500&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=false`;
 
   return (
-    <section className="py-24 bg-[var(--color-surface)] relative">
+    <section className="pt-3 pb-24 md:py-24 bg-[var(--color-surface)] relative">
       <Container>
         <SectionHeader
           eyebrow={t('eyebrow')}
@@ -106,27 +70,22 @@ export default function FacebookFeed() {
                         border border-[var(--glass-card-border)]
                         p-4 sm:p-6"
           >
-            {/* Skeleton while SDK loads */}
+            {/* Skeleton while iframe loads */}
             {!loaded && <FeedSkeleton />}
 
-            {/* Facebook Page Plugin */}
-            <div
-              className={loaded ? '' : 'h-0 overflow-hidden'}
-              key={isDark ? 'dark' : 'light'}
-            >
-              <div
-                className="fb-page"
-                data-href={FB_PAGE_URL}
-                data-tabs="timeline"
-                data-width="500"
-                data-height="400"
-                data-small-header="true"
-                data-adapt-container-width="true"
-                data-hide-cover="false"
-                data-show-facepile="false"
-                data-colorscheme={isDark ? 'dark' : 'light'}
-              />
-            </div>
+            {/* Facebook Page Plugin via iframe */}
+            <iframe
+              src={iframeSrc}
+              width="500"
+              height="500"
+              className={`w-full border-none overflow-hidden rounded-lg ${loaded ? '' : 'h-0'}`}
+              scrolling="no"
+              frameBorder="0"
+              allowFullScreen
+              allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+              title="Masjid Rahma Facebook"
+              onLoad={() => setLoaded(true)}
+            />
           </div>
 
           {/* Follow CTA */}
@@ -146,17 +105,6 @@ export default function FacebookFeed() {
           </a>
         </div>
       </Container>
-
-      {/* Facebook SDK */}
-      <div id="fb-root" />
-      <Script
-        src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v21.0"
-        strategy="lazyOnload"
-        onLoad={() => {
-          window.FB?.XFBML?.parse();
-          setLoaded(true);
-        }}
-      />
     </section>
   );
 }
