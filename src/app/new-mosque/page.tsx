@@ -43,7 +43,7 @@ export default function NewMosquePage() {
       <header className="mb-8 relative w-full">
         {/* MOBILE: Text in grey area above the image */}
         <div className="md:hidden">
-          <div className="bg-[var(--color-bg-secondary,#f3f4f6)] px-4 pt-3 pb-5 text-center">
+          <div className="bg-[var(--color-bg)] px-4 pt-3 pb-5 text-center">
             <p className="text-xs tracking-[0.3em] uppercase font-[family-name:var(--font-jakarta)] font-semibold text-primary mb-1.5">
               Fremtidens moské
             </p>

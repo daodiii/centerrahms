@@ -18,10 +18,10 @@
    LIGHT THEME (default)
    ═══════════════════════════════════════════════ */
 :root {
-  --background: #f8f9fa;
+  --background: #ffffff;
   --foreground: #171717;
 
-  --color-bg: #f8f9fa;
+  --color-bg: #ffffff;
   --color-surface: #ffffff;
   --color-text: #1a1a2e;
   --color-text-muted: #64748b;
