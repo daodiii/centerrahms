@@ -94,23 +94,23 @@ export default function DonationWidget({
   };
 
   return (
-    <div className="glass-panel p-6">
+    <div className="glass-panel p-3 md:p-6">
       {/* Header */}
-      <div className="flex items-center gap-3 mb-4">
-        <span className="material-icons text-primary text-3xl">
+      <div className="flex items-center gap-2 md:gap-3 mb-3 md:mb-4">
+        <span className="material-icons text-primary text-2xl md:text-3xl">
           volunteer_activism
         </span>
         <div>
-          <h2 className="text-xl font-bold">{title}</h2>
-          <p className="text-xs text-[var(--color-text-muted)]">{subtitle}</p>
+          <h2 className="text-lg md:text-xl font-bold">{title}</h2>
+          <p className="text-[10px] md:text-xs text-[var(--color-text-muted)]">{subtitle}</p>
         </div>
       </div>
 
       {/* Frequency Toggle */}
-      <div className="flex gap-2 mb-6">
+      <div className="flex gap-1.5 md:gap-2 mb-3 md:mb-6">
         <button
           onClick={() => setFrequency('one-time')}
-          className={`flex-1 py-2 px-4 rounded-full text-sm font-bold transition-all ${
+          className={`flex-1 py-1.5 md:py-2 px-3 md:px-4 rounded-full text-xs md:text-sm font-bold transition-all ${
             frequency === 'one-time'
               ? 'bg-primary text-[var(--color-bg)]'
               : 'bg-transparent text-[var(--color-text-muted)] border border-[var(--color-border)]'
@@ -120,7 +120,7 @@ export default function DonationWidget({
         </button>
         <button
           onClick={() => setFrequency('monthly')}
-          className={`flex-1 py-2 px-4 rounded-full text-sm font-bold transition-all ${
+          className={`flex-1 py-1.5 md:py-2 px-3 md:px-4 rounded-full text-xs md:text-sm font-bold transition-all ${
             frequency === 'monthly'
               ? 'bg-primary text-[var(--color-bg)]'
               : 'bg-transparent text-[var(--color-text-muted)] border border-[var(--color-border)]'
@@ -131,12 +131,12 @@ export default function DonationWidget({
       </div>
 
       {/* Quick amounts */}
-      <div className="grid grid-cols-3 gap-3 mb-4">
+      <div className="grid grid-cols-3 gap-2 md:gap-3 mb-3 md:mb-4">
         {DONATION_AMOUNTS.map((amount) => (
           <button
             key={amount}
             onClick={() => handleAmountClick(amount)}
-            className={`py-3 px-4 rounded-lg text-sm font-bold transition-all ${
+            className={`py-2 md:py-3 px-3 md:px-4 rounded-lg text-xs md:text-sm font-bold transition-all ${
               selectedAmount === amount && !customAmount
                 ? 'bg-primary text-[var(--color-bg)] border-2 border-primary'
                 : 'bg-[var(--color-surface)] text-[var(--color-text)] border border-[var(--color-border)] hover:border-primary/50'
@@ -148,8 +148,8 @@ export default function DonationWidget({
       </div>
 
       {/* Custom amount input */}
-      <div className="mb-6">
-        <label className="block text-xs text-[var(--color-text-muted)] mb-2">
+      <div className="mb-3 md:mb-6">
+        <label className="block text-[10px] md:text-xs text-[var(--color-text-muted)] mb-1 md:mb-2">
           {customAmountLabel}
         </label>
         <div className="relative">
@@ -159,23 +159,23 @@ export default function DonationWidget({
             onChange={(e) => handleCustomAmountChange(e.target.value)}
             placeholder="0"
             min="10"
-            className="w-full py-3 pl-12 pr-4 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-lg text-[var(--color-text)] focus:outline-none focus:border-primary transition-colors"
+            className="w-full py-2 md:py-3 pl-10 md:pl-12 pr-3 md:pr-4 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-lg text-sm md:text-base text-[var(--color-text)] focus:outline-none focus:border-primary transition-colors"
           />
-          <span className="absolute left-4 top-1/2 -translate-y-1/2 text-[var(--color-text-muted)]">
+          <span className="absolute left-3 md:left-4 top-1/2 -translate-y-1/2 text-sm md:text-base text-[var(--color-text-muted)]">
             kr
           </span>
         </div>
       </div>
 
       {/* Payment methods */}
-      <div className="mb-6">
-        <label className="block text-xs text-[var(--color-text-muted)] mb-3">
+      <div className="mb-3 md:mb-6">
+        <label className="block text-[10px] md:text-xs text-[var(--color-text-muted)] mb-2 md:mb-3">
           Payment Method
         </label>
-        <div className="space-y-2">
+        <div className="space-y-1.5 md:space-y-2">
           {/* Card */}
           <label
-            className={`flex items-center gap-3 p-3 rounded-lg cursor-pointer transition-all ${
+            className={`flex items-center gap-2 md:gap-3 p-2 md:p-3 rounded-lg cursor-pointer transition-all ${
               paymentMethod === 'card'
                 ? 'bg-primary/10 border-2 border-primary'
                 : 'bg-[var(--color-surface)] border border-[var(--color-border)] hover:border-primary/50'
@@ -189,14 +189,14 @@ export default function DonationWidget({
               onChange={(e) => setPaymentMethod(e.target.value as PaymentMethod)}
               className="sr-only"
             />
-            <span className="material-icons text-primary">credit_card</span>
-            <span className="flex-1 font-semibold text-sm">Card</span>
+            <span className="material-icons text-primary text-lg md:text-2xl">credit_card</span>
+            <span className="flex-1 font-semibold text-xs md:text-sm">Card</span>
           </label>
 
           {/* Apple Pay */}
           <label
             aria-disabled="true"
-            className="flex items-center gap-3 p-3 rounded-lg cursor-not-allowed opacity-50 bg-[var(--color-surface)] border border-[var(--color-border)]"
+            className="flex items-center gap-2 md:gap-3 p-2 md:p-3 rounded-lg cursor-not-allowed opacity-50 bg-[var(--color-surface)] border border-[var(--color-border)]"
           >
             <input
               type="radio"
@@ -205,13 +205,13 @@ export default function DonationWidget({
               disabled
               className="sr-only"
             />
-            <span className="material-icons text-[var(--color-text-muted)]">
+            <span className="material-icons text-[var(--color-text-muted)] text-lg md:text-2xl">
               apple
             </span>
-            <span className="flex-1 font-semibold text-sm text-[var(--color-text-muted)]">
+            <span className="flex-1 font-semibold text-xs md:text-sm text-[var(--color-text-muted)]">
               Apple Pay
             </span>
-            <span className="text-xs text-[var(--color-text-muted)]">
+            <span className="text-[10px] md:text-xs text-[var(--color-text-muted)]">
               Coming soon
             </span>
           </label>
@@ -219,7 +219,7 @@ export default function DonationWidget({
           {/* Vipps */}
           <label
             aria-disabled="true"
-            className="flex items-center gap-3 p-3 rounded-lg cursor-not-allowed opacity-50 bg-[var(--color-surface)] border border-[var(--color-border)]"
+            className="flex items-center gap-2 md:gap-3 p-2 md:p-3 rounded-lg cursor-not-allowed opacity-50 bg-[var(--color-surface)] border border-[var(--color-border)]"
           >
             <input
               type="radio"
@@ -228,13 +228,13 @@ export default function DonationWidget({
               disabled
               className="sr-only"
             />
-            <span className="material-icons text-[var(--color-text-muted)]">
+            <span className="material-icons text-[var(--color-text-muted)] text-lg md:text-2xl">
               payment
             </span>
-            <span className="flex-1 font-semibold text-sm text-[var(--color-text-muted)]">
+            <span className="flex-1 font-semibold text-xs md:text-sm text-[var(--color-text-muted)]">
               Vipps
             </span>
-            <span className="text-xs text-[var(--color-text-muted)]">
+            <span className="text-[10px] md:text-xs text-[var(--color-text-muted)]">
               Coming soon
             </span>
           </label>
@@ -243,7 +243,7 @@ export default function DonationWidget({
 
       {/* Error message */}
       {error && (
-        <div className="mb-4 p-3 rounded-lg bg-red-500/10 border border-red-500/30 text-red-500 text-sm">
+        <div className="mb-3 md:mb-4 p-2 md:p-3 rounded-lg bg-red-500/10 border border-red-500/30 text-red-500 text-xs md:text-sm">
           {error}
         </div>
       )}
@@ -252,7 +252,7 @@ export default function DonationWidget({
       <button
         onClick={handleConfirmDonation}
         disabled={isProcessing || selectedAmount <= 0}
-        className="w-full bg-primary text-[var(--color-bg)] py-3 px-6 rounded-lg font-bold flex items-center justify-center gap-2 hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
+        className="w-full bg-primary text-[var(--color-bg)] py-2.5 md:py-3 px-4 md:px-6 rounded-lg text-sm md:text-base font-bold flex items-center justify-center gap-2 hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
       >
         <span>{isProcessing ? processingLabel : confirmLabel}</span>
         {isProcessing ? (
@@ -263,8 +263,8 @@ export default function DonationWidget({
       </button>
 
       {/* Security note */}
-      <div className="flex items-start gap-2 mt-4 text-xs text-[var(--color-text-muted)]">
-        <span className="material-icons text-sm text-primary">lock</span>
+      <div className="flex items-start gap-2 mt-3 md:mt-4 text-[10px] md:text-xs text-[var(--color-text-muted)]">
+        <span className="material-icons text-xs md:text-sm text-primary">lock</span>
         <span>{securityNote}</span>
       </div>
     </div>
