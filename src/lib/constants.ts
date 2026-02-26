@@ -129,11 +129,11 @@ export const PRAYER_ICONS: Record<string, string> = {
 export const MOCK_PRAYER_TIMES: import('@/types/prayer').PrayerSchedule = {
   date: new Date().toISOString().split('T')[0],
   prayers: {
-    fajr: { time: '04:12' },
-    dhuhr: { time: '13:15' },
-    asr: { time: '17:45' },
-    maghrib: { time: '21:30' },
-    isha: { time: '23:15' },
+    fajr: { time: '04:12', iqamah: '04:30' },
+    dhuhr: { time: '13:15', iqamah: '13:30' },
+    asr: { time: '17:45', iqamah: '18:00' },
+    maghrib: { time: '21:30', iqamah: '21:35' },
+    isha: { time: '23:15', iqamah: '23:30' },
   },
   jummah: {
     khutbah: '13:30',

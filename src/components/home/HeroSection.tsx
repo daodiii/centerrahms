@@ -553,12 +553,12 @@ export default function HeroSection() {
                   {PRAYER_ORDER.map((name) => (
                     <div
                       key={`iq-${name}`}
-                      className="bg-[var(--color-surface)] card-glow-border rounded-lg p-2 flex flex-col items-center justify-center"
+                      className="bg-[var(--color-surface)] card-glow-border rounded-lg p-2 flex flex-col items-center justify-center min-h-[48px] overflow-visible"
                     >
-                      <span className="text-[8px] uppercase tracking-wider text-[var(--color-text-muted)] mb-0.5">
+                      <span className="text-[7px] uppercase tracking-wide text-[var(--color-text-muted)] leading-none mb-1">
                         Iqamah
                       </span>
-                      <span className="text-xs font-bold text-[var(--color-text)]">
+                      <span className="text-sm font-bold text-[var(--color-text)] leading-none">
                         {schedule.prayers[name].iqamah || '—'}
                       </span>
                     </div>
