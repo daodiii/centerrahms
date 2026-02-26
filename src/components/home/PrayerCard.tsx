@@ -25,7 +25,11 @@ export default function PrayerCard({
         </h4>
         <p className="text-sm md:text-lg font-bold text-[var(--color-text)]">{time}</p>
         {iqamah && (
-          <p className="text-[10px] md:text-[10px] text-[var(--color-text-muted)] mt-1">Iqamah {iqamah}</p>
+          <p className="text-[8px] md:text-[10px] text-[var(--color-text-muted)] mt-1 whitespace-nowrap">
+            <span className="hidden md:inline">Iqamah </span>
+            <span className="md:hidden">iq </span>
+            {iqamah}
+          </p>
         )}
       </div>
     );
@@ -40,7 +44,11 @@ export default function PrayerCard({
         {time}
       </p>
       {iqamah && (
-        <p className="text-[10px] md:text-[10px] text-[var(--color-text-muted)] mt-1">Iqamah {iqamah}</p>
+        <p className="text-[8px] md:text-[10px] text-[var(--color-text-muted)] mt-1 whitespace-nowrap">
+          <span className="hidden md:inline">Iqamah </span>
+          <span className="md:hidden">iq </span>
+          {iqamah}
+        </p>
       )}
     </div>
   );
