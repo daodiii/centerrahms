@@ -43,33 +43,37 @@ export default function VideoAndDonate({ projects, translations: t, statsRowProp
             <div className="lg:col-span-7 xl:col-span-8 flex flex-col h-full gap-6">
 
                 {/* 4x2 Grid of Projects (2x4 on mobile) */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 flex-grow">
                     {projectsWithoutMihrab.map((project, index) => (
                         <Fragment key={project.id}>
                             {/* Insert Vipps tile after first project */}
                             {index === 1 && (
                                 <CompactVippsTile onClick={() => { }} />
                             )}
-                            <CompactProjectTile
-                                project={project}
-                                title={t.projectTitles[project.id] ?? project.titleKey}
-                                targetLabel={t.targetLabel}
-                                onClick={() => { }}
-                            />
+                            <div className="min-h-[120px] lg:min-h-[160px]">
+                                <CompactProjectTile
+                                    project={project}
+                                    title={t.projectTitles[project.id] ?? project.titleKey}
+                                    targetLabel={t.targetLabel}
+                                    onClick={() => { }}
+                                />
+                            </div>
                         </Fragment>
                     ))}
                     {mihrab && (
-                        <CompactProjectTile
-                            project={mihrab}
-                            title={t.projectTitles[mihrab.id] ?? mihrab.titleKey}
-                            targetLabel={t.targetLabel}
-                            onClick={() => { }}
-                        />
+                        <div className="min-h-[120px] lg:min-h-[160px]">
+                            <CompactProjectTile
+                                project={mihrab}
+                                title={t.projectTitles[mihrab.id] ?? mihrab.titleKey}
+                                targetLabel={t.targetLabel}
+                                onClick={() => { }}
+                            />
+                        </div>
                     )}
                 </div>
 
-                {/* Video Container: Fills remaining height on desktop */}
-                <div className="glass-panel p-2 md:p-3 flex-grow flex flex-col min-h-[250px] lg:min-h-0">
+                {/* Video Container: Fixed smaller height */}
+                <div className="glass-panel p-2 md:p-3 h-[250px] lg:h-[300px] flex-shrink-0">
                     <div className="relative w-full h-full rounded-lg overflow-hidden bg-black/5 flex-grow shadow-inner flex items-center justify-center">
                         <video
                             controls
@@ -98,7 +102,7 @@ export default function VideoAndDonate({ projects, translations: t, statsRowProp
                     />
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-2 gap-2 mt-auto">
                     {/* Embedded StatsRow under payment system configured as 2x2 grid */}
                     <StatsRow {...statsRowProps} className="col-span-2 !grid-cols-2" />
                 </div>
