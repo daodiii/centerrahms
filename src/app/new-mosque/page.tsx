@@ -25,6 +25,11 @@ export async function generateMetadata(): Promise<Metadata> {
       locale: 'nb_NO',
       type: 'website',
     },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${t('sectionTitle')} — Masjid Rahma`,
+      description: t('pageSubtitle'),
+    },
   };
 }
 

@@ -26,9 +26,28 @@ const amiri = Amiri({
 });
 
 export const metadata: Metadata = {
-  title: 'Masjid Rahma - Oslo',
+  metadataBase: new URL('https://masjidrahma.no'),
+  title: {
+    template: '%s | Masjid Rahma',
+    default: 'Masjid Rahma - Oslo',
+  },
   description:
     'Et moderne senter for tilbedelse, fellesskap og utdanning i hjertet av Oslo.',
+  openGraph: {
+    title: 'Masjid Rahma - Oslo',
+    description:
+      'Et moderne senter for tilbedelse, fellesskap og utdanning i hjertet av Oslo.',
+    url: 'https://masjidrahma.no',
+    siteName: 'Masjid Rahma',
+    locale: 'nb_NO',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Masjid Rahma - Oslo',
+    description:
+      'Et moderne senter for tilbedelse, fellesskap og utdanning i hjertet av Oslo.',
+  },
 };
 
 export default async function RootLayout({
