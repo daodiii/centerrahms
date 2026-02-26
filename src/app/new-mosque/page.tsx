@@ -50,15 +50,12 @@ export default function NewMosquePage() {
       <header className="mb-0 md:mb-8 relative w-full">
         {/* MOBILE: Text in grey area above the image */}
         <div className="md:hidden">
-          <div className="bg-[var(--color-bg)] px-4 pt-3 pb-5 text-center">
-            <p className="text-xs tracking-[0.3em] uppercase font-[family-name:var(--font-jakarta)] font-semibold text-primary mb-1.5">
-              Fremtidens moské
-            </p>
-            <h1 className="text-4xl font-bold tracking-tight leading-[1.1] font-[family-name:var(--font-display)] text-center text-[var(--color-text)]">
+          <div className="bg-[var(--color-bg)] px-4 pt-4 pb-5 text-center">
+            <h1 className="text-3xl font-bold tracking-tight leading-[1.1] font-[family-name:var(--font-display)] text-center text-[var(--color-text)]">
               Nye Masjid Rahma
             </h1>
-            <p className="font-[family-name:var(--font-jakarta)] text-[var(--color-text)] text-sm max-w-md text-center mt-2 mx-auto font-normal leading-relaxed">
-              {t('donate.pageSubtitle')}
+            <p className="font-[family-name:var(--font-jakarta)] text-[var(--color-text-muted)] text-sm max-w-md text-center mt-2 mx-auto font-normal">
+              Invest in your Akhira.
             </p>
           </div>
           <div className="w-full relative h-[40vh] min-h-[300px] overflow-hidden">
@@ -80,24 +77,20 @@ export default function NewMosquePage() {
             src="/nymoskeoversikt.png"
             alt="3D oversikt over nye Masjid Rahma"
             fill
-            className="object-cover"
+            className="object-cover relative z-0"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-bg)]/80 via-transparent to-transparent pointer-events-none" />
-          <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[var(--color-bg)] to-transparent pointer-events-none" />
+          {/* Top grey gradient overlay so the text is fully legible */}
+          <div className="absolute top-0 left-0 right-0 h-48 bg-gradient-to-b from-[var(--color-bg)] via-[var(--color-bg)]/80 to-transparent pointer-events-none z-10" />
+          <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[var(--color-bg)] to-transparent pointer-events-none z-10" />
 
-          <div className="absolute top-0 left-0 right-0 flex flex-col items-center justify-center pt-20 pb-8 drop-shadow-md">
-            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[var(--glass-bg)] border border-[var(--color-border)] backdrop-blur-md mb-6 shadow-glow-lg">
-              <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-              <p className="text-xs tracking-[0.2em] font-bold text-[var(--color-text)] uppercase font-[family-name:var(--font-jakarta)]">
-                Fremtidens moské
-              </p>
-            </span>
-            <h1 className="text-6xl lg:text-8xl font-black tracking-tighter leading-[1] font-[family-name:var(--font-display)] text-center text-[var(--color-text)] mb-6">
-              Nye Masjid<br />Rahma
+          {/* Text Content placed near the top, in the grey gradient */}
+          <div className="absolute top-0 left-0 right-0 flex flex-col items-center justify-start pt-16 z-20">
+            <h1 className="text-5xl lg:text-7xl font-bold tracking-tighter leading-[1] font-[family-name:var(--font-display)] text-[var(--color-text)] mb-3">
+              Nye Masjid Rahma
             </h1>
-            <p className="font-[family-name:var(--font-jakarta)] text-[var(--color-text)] text-lg lg:text-xl max-w-xl text-center px-4 font-medium leading-relaxed bg-[var(--glass-bg)] backdrop-blur-md rounded-2xl py-4 border border-[var(--color-border)] shadow-lg">
-              {t('donate.pageSubtitle')}
+            <p className="font-[family-name:var(--font-jakarta)] text-[var(--color-text)] text-lg lg:text-xl font-medium tracking-wide">
+              Invest in your Akhira.
             </p>
           </div>
         </div>
