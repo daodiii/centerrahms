@@ -5,6 +5,7 @@ import type { DonationProject } from '@/types/donation';
 import DonationWidget from './DonationWidget';
 import CompactProjectTile from './CompactProjectTile';
 import CompactVippsTile from './CompactVippsTile';
+import StatsRow from './StatsRow';
 
 interface VideoAndDonateProps {
     projects: DonationProject[];
@@ -20,9 +21,19 @@ interface VideoAndDonateProps {
         projectTitles: Record<string, string>;
         targetLabel: string;
     };
+    statsRowProps: {
+        transparencyLabel: string;
+        transparencyDesc: string;
+        taxLabel: string;
+        taxDesc: string;
+        accessLabel: string;
+        accessDesc: string;
+        secureLabel: string;
+        secureDesc: string;
+    };
 }
 
-export default function VideoAndDonate({ projects, translations: t }: VideoAndDonateProps) {
+export default function VideoAndDonate({ projects, translations: t, statsRowProps }: VideoAndDonateProps) {
     const projectsWithoutMihrab = projects.filter(p => p.id !== 'mihrab');
     const mihrab = projects.find(p => p.id === 'mihrab');
 
@@ -32,7 +43,7 @@ export default function VideoAndDonate({ projects, translations: t }: VideoAndDo
             <div className="lg:col-span-7 xl:col-span-8 flex flex-col h-full gap-6">
 
                 {/* 4x2 Grid of Projects (2x4 on mobile) */}
-                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2.5">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     {projectsWithoutMihrab.map((project, index) => (
                         <Fragment key={project.id}>
                             {/* Insert Vipps tile after first project */}
@@ -72,9 +83,9 @@ export default function VideoAndDonate({ projects, translations: t }: VideoAndDo
                 </div>
             </div>
 
-            {/* Right: Donation Widget */}
-            <div className="lg:col-span-5 xl:col-span-4 sticky top-24 h-full">
-                <div className="h-full">
+            {/* Right: Donation Widget and StatsRow */}
+            <div className="lg:col-span-5 xl:col-span-4 flex flex-col gap-6 sticky top-24 h-full">
+                <div className="">
                     <DonationWidget
                         title={t.makeADonation}
                         subtitle={t.donationSubtitle}
@@ -85,6 +96,11 @@ export default function VideoAndDonate({ projects, translations: t }: VideoAndDo
                         securityNote={t.securityNote}
                         processingLabel={t.processingLabel}
                     />
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                    {/* Embedded StatsRow under payment system configured as 2x2 grid */}
+                    <StatsRow {...statsRowProps} className="col-span-2 !grid-cols-2" />
                 </div>
             </div>
         </div>

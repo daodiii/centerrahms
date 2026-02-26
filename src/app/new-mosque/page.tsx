@@ -5,7 +5,6 @@ import Image from 'next/image';
 import Container from '@/components/ui/Container';
 import VideoAndDonate from '@/components/donate/VideoAndDonate';
 import GallerySection from '@/components/new-mosque/GallerySection';
-import StatsRow from '@/components/donate/StatsRow';
 import { PROJECTS } from '@/lib/constants';
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -113,24 +112,22 @@ export default function NewMosquePage() {
             projectTitles,
             targetLabel: t('donate.target'),
           }}
+          statsRowProps={{
+            transparencyLabel: t('donate.transparency'),
+            transparencyDesc: t('donate.transparencyDesc'),
+            taxLabel: t('donate.taxDeductible'),
+            taxDesc: t('donate.taxDeductibleDesc'),
+            accessLabel: t('donate.access'),
+            accessDesc: t('donate.accessDesc'),
+            secureLabel: t('donate.securePayments'),
+            secureDesc: t('donate.securePaymentsDesc')
+          }}
         />
 
         {/* Masonry Image Gallery */}
         <GallerySection
           title="Sniktitt av Fremtiden"
           subtitle="Slik vil nye Masjid Rahma se ut, insha'Allah."
-        />
-
-        {/* Stats Row */}
-        <StatsRow
-          transparencyLabel={t('donate.transparency')}
-          transparencyDesc={t('donate.transparencyDesc')}
-          taxLabel={t('donate.taxDeductible')}
-          taxDesc={t('donate.taxDeductibleDesc')}
-          accessLabel={t('donate.access')}
-          accessDesc={t('donate.accessDesc')}
-          secureLabel={t('donate.securePayments')}
-          secureDesc={t('donate.securePaymentsDesc')}
         />
       </Container>
     </main>

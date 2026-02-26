@@ -7,6 +7,7 @@ interface StatsRowProps {
   accessDesc: string;
   secureLabel: string;
   secureDesc: string;
+  className?: string;
 }
 
 export default function StatsRow({
@@ -18,6 +19,7 @@ export default function StatsRow({
   accessDesc,
   secureLabel,
   secureDesc,
+  className,
 }: StatsRowProps) {
   const stats = [
     {
@@ -43,7 +45,7 @@ export default function StatsRow({
   ];
 
   return (
-    <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 md:gap-4 mt-6 md:mt-12">
+    <div className={`grid grid-cols-2 lg:grid-cols-4 gap-2 md:gap-4 mt-6 md:mt-0 ${className || ''}`}>
       {stats.map((stat, index) => (
         <div
           key={index}
