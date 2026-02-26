@@ -556,7 +556,7 @@ export default function HeroSection() {
                       className="bg-[var(--color-surface)] card-glow-border rounded-lg p-2 flex flex-col items-center justify-center"
                     >
                       <span className="text-[8px] uppercase tracking-wider text-[var(--color-text-muted)] mb-0.5">
-                        Ber
+                        Iqamah
                       </span>
                       <span className="text-xs font-bold text-[var(--color-text)]">
                         {schedule.prayers[name].iqamah || '—'}
