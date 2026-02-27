@@ -91,7 +91,7 @@ export default function GallerySection({
                 <p className="text-sm md:text-base text-[var(--color-text-muted)]">{subtitle}</p>
             </div>
 
-            <div className="relative w-full max-w-[860px] mx-auto aspect-[11/10] rounded-2xl overflow-hidden glass-panel group">
+            <div className="relative w-full max-w-5xl mx-auto h-[50vh] md:h-[70vh] min-h-[350px] max-h-[800px] rounded-2xl overflow-hidden glass-panel group bg-black/5 dark:bg-white/5">
                 <AnimatePresence initial={false} custom={direction}>
                     <motion.div
                         key={currentIndex}
@@ -104,16 +104,18 @@ export default function GallerySection({
                             x: { type: "spring", stiffness: 300, damping: 30 },
                             opacity: { duration: 0.2 },
                         }}
-                        className="absolute inset-0 w-full h-full"
+                        className="absolute inset-0 w-full h-full flex items-center justify-center p-2 md:p-4"
                     >
-                        <Image
-                            src={images[currentIndex].src}
-                            alt={images[currentIndex].alt}
-                            fill
-                            className="object-cover"
-                            sizes="100vw"
-                            priority={currentIndex === 0}
-                        />
+                        <div className="relative w-full h-full">
+                            <Image
+                                src={images[currentIndex].src}
+                                alt={images[currentIndex].alt}
+                                fill
+                                className="object-contain"
+                                sizes="(max-width: 1024px) 100vw, 1024px"
+                                priority={currentIndex === 0}
+                            />
+                        </div>
                         {/* Elegant gradient overlay for text readability if needed in the future */}
                         <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
                     </motion.div>
