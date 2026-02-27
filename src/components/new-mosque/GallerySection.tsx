@@ -1,6 +1,9 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface GallerySectionProps {
     title?: string;
@@ -12,65 +15,138 @@ export default function GallerySection({
     subtitle = "Slik vil nye Masjid Rahma se ut, insha'Allah."
 }: GallerySectionProps) {
 
-    // Using the available high-res image and some placeholders to demonstrate a beautiful masonry layout
+    // Using the available high-res image and some placeholders to demonstrate a beautiful carousel layout
     const images = [
         {
             src: '/nymoskeoversikt.png',
             alt: 'Nye Masjid Rahma oversikt',
-            className: 'md:col-span-2 md:row-span-2 h-64 md:h-[500px]'
         },
         {
-            src: 'https://images.unsplash.com/photo-1572949645841-094f3a9c4c94?q=80&w=800&auto=format&fit=crop', // Beautiful Mosque Interior
+            src: 'https://images.unsplash.com/photo-1572949645841-094f3a9c4c94?q=80&w=1200&auto=format&fit=crop', // Beautiful Mosque Interior
             alt: 'Mosque Interior details placeholder',
-            className: 'h-48 md:h-[240px]'
         },
         {
-            src: 'https://images.unsplash.com/photo-1564121211835-e88c852648ab?q=80&w=800&auto=format&fit=crop', // Mosque Architecture
+            src: 'https://images.unsplash.com/photo-1564121211835-e88c852648ab?q=80&w=1200&auto=format&fit=crop', // Mosque Architecture
             alt: 'Architecture details',
-            className: 'h-48 md:h-[240px]'
         },
         {
-            src: 'https://images.unsplash.com/photo-1519817914152-2a640c547cba?q=80&w=800&auto=format&fit=crop', // Islamic Geometry
+            src: 'https://images.unsplash.com/photo-1519817914152-2a640c547cba?q=80&w=1200&auto=format&fit=crop', // Islamic Geometry
             alt: 'Islamic geometry details',
-            className: 'md:col-span-2 h-48 md:h-[240px]'
         }
     ];
 
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const [direction, setDirection] = useState(1);
+
+    // Auto-play functionality
+    useEffect(() => {
+        const timer = setInterval(() => {
+            handleNext();
+        }, 5000); // Change slide every 5 seconds
+
+        return () => clearInterval(timer);
+    }, [currentIndex]);
+
+    const handleNext = () => {
+        setDirection(1);
+        setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+    };
+
+    const handlePrev = () => {
+        setDirection(-1);
+        setCurrentIndex((prevIndex) => (prevIndex === 0 ? images.length - 1 : prevIndex - 1));
+    };
+
+    const variants = {
+        enter: (direction: number) => ({
+            x: direction > 0 ? 1000 : -1000,
+            opacity: 0,
+        }),
+        center: {
+            x: 0,
+            opacity: 1,
+        },
+        exit: (direction: number) => ({
+            x: direction < 0 ? 1000 : -1000,
+            opacity: 0,
+        }),
+    };
+
     return (
-        <section className="mt-20 mb-16">
+        <section className="mt-20 mb-16 px-4 md:px-0">
             <div className="text-center mb-10">
                 <h2 className="text-2xl md:text-3xl font-bold mb-2 text-[var(--color-text)]">{title}</h2>
                 <p className="text-sm md:text-base text-[var(--color-text-muted)]">{subtitle}</p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 auto-rows-auto">
-                {images.map((img, i) => (
-                    <div
-                        key={i}
-                        className={`relative rounded-xl overflow-hidden glass-panel group ${img.className}`}
+            <div className="relative w-full aspect-[16/9] md:aspect-[21/9] max-h-[70vh] rounded-2xl overflow-hidden glass-panel group">
+                <AnimatePresence initial={false} custom={direction}>
+                    <motion.div
+                        key={currentIndex}
+                        custom={direction}
+                        variants={variants}
+                        initial="enter"
+                        animate="center"
+                        exit="exit"
+                        transition={{
+                            x: { type: "spring", stiffness: 300, damping: 30 },
+                            opacity: { duration: 0.2 },
+                        }}
+                        className="absolute inset-0 w-full h-full"
                     >
-                        {/* Conditional handling for Unsplash URLs vs Local URLs since Next.js Image component needs configured domains */}
-                        {img.src.startsWith('http') ? (
+                        {images[currentIndex].src.startsWith('http') ? (
                             <img
-                                src={img.src}
-                                alt={img.alt}
-                                className="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-105"
-                                loading="lazy"
+                                src={images[currentIndex].src}
+                                alt={images[currentIndex].alt}
+                                className="w-full h-full object-cover"
                             />
                         ) : (
                             <Image
-                                src={img.src}
-                                alt={img.alt}
+                                src={images[currentIndex].src}
+                                alt={images[currentIndex].alt}
                                 fill
-                                className="object-cover transition-transform duration-700 ease-in-out group-hover:scale-105"
-                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                className="object-cover"
+                                sizes="100vw"
+                                priority={currentIndex === 0}
                             />
                         )}
+                        {/* Elegant gradient overlay for text readability if needed in the future */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
+                    </motion.div>
+                </AnimatePresence>
 
-                        {/* Elegant vignette overlay */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-                    </div>
-                ))}
+                {/* Navigation Buttons */}
+                <button
+                    onClick={(e) => { e.preventDefault(); handlePrev(); }}
+                    className="absolute left-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-white/10 hover:bg-white/20 text-white backdrop-blur-md transition-all opacity-0 group-hover:opacity-100 focus:opacity-100 z-10"
+                    aria-label="Previous image"
+                >
+                    <ChevronLeft className="w-6 h-6 md:w-8 md:h-8" />
+                </button>
+
+                <button
+                    onClick={(e) => { e.preventDefault(); handleNext(); }}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-white/10 hover:bg-white/20 text-white backdrop-blur-md transition-all opacity-0 group-hover:opacity-100 focus:opacity-100 z-10"
+                    aria-label="Next image"
+                >
+                    <ChevronRight className="w-6 h-6 md:w-8 md:h-8" />
+                </button>
+
+                {/* Indicators */}
+                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+                    {images.map((_, index) => (
+                        <button
+                            key={index}
+                            onClick={() => {
+                                setDirection(index > currentIndex ? 1 : -1);
+                                setCurrentIndex(index);
+                            }}
+                            className={`w-2 h-2 rounded-full transition-all ${index === currentIndex ? 'bg-white w-6' : 'bg-white/50 hover:bg-white/80'
+                                }`}
+                            aria-label={`Go to slide ${index + 1}`}
+                        />
+                    ))}
+                </div>
             </div>
         </section>
     );
