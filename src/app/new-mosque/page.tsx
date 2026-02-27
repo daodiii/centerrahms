@@ -79,14 +79,14 @@ export default function NewMosquePage() {
               Invest in your Akhira.
             </p>
           </div>
-          <div className="relative w-full max-w-6xl mx-auto rounded-xl overflow-hidden shadow-sm">
+          <div className="relative w-full">
             {/* Show the image fully without cropping via responsive Next/Image */}
             <Image
               src="/nymoskeoversikt.png"
               alt="3D oversikt over nye Masjid Rahma"
               width={1920}
               height={1080}
-              className="w-full h-auto object-contain"
+              className="w-full h-auto object-cover"
               priority
             />
           </div>
