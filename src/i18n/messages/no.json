@@ -219,6 +219,52 @@
     "subtitle": "F\u00f8lg v\u00e5re siste oppdateringer, arrangementer og fellesskaps\u00f8yeblikk p\u00e5 Facebook",
     "followUs": "F\u00f8lg oss p\u00e5 Facebook"
   },
+  "heritage": {
+    "pageTitle": "Om oss",
+    "subtitle": "Center Rahma",
+    "intro": {
+      "eyebrow": "HVEM VI ER",
+      "title": "Kort om oss",
+      "desc": "Center Rahma er et religiøst senter for tilbedelse og et viktig møtested for muslimer i Norge. Senteret fungerer både som et sted for bønn og som et samlingspunkt under islamske høytider.",
+      "desc2": "Center Rahma er en paraplyorganisasjon som omfatter flere undergrupper, blant annet Rahma Undervisning, Ung Rahma og Rahma Kvinner. Undervisning er en av våre viktigste aktiviteter.",
+      "desc3": "Vi er svært takknemlige for våre dedikerte frivillige lærere, som hver uke bruker av sin fritid for å undervise og støtte den kommende generasjonen muslimer i både arabisk og islamsk lære."
+    },
+    "services": {
+      "eyebrow": "HVA VI TILBYR",
+      "title": "Våre tjenester",
+      "subtitle": "Center Rahma tilbyr et bredt spekter av aktiviteter og tjenester for medlemmer og besøkende.",
+      "prayer": "Fem daglige bønner ledet av vår imam",
+      "friday": "Fredagsbønn",
+      "eid": "Feiring av Eid og andre religiøse høytider",
+      "education": "Undervisning i religion og arabisk for barn og ungdom",
+      "safespace": "Et trygt og inkluderende møtested for alle aldre og kjønn",
+      "guidance": "Rådgivning og veiledning for medlemmer som har behov for det",
+      "social": "Sosiale sammenkomster åpne for alle",
+      "venue": "Lokaler tilgjengelig for høytidsfeiringer, bryllup, dåp og andre passende arrangementer"
+    },
+    "contact": {
+      "text": "Vi legger stor vekt på god kontakt med våre medlemmer, og bistår gjerne både med daglige gjøremål og større utfordringer. Center Rahma ønsker å være tilgjengelig når det trengs."
+    },
+    "history": {
+      "eyebrow": "VÅR REISE",
+      "title": "Litt historie",
+      "founding": {
+        "year": "1992",
+        "title": "Grunnlagt på Grønland",
+        "desc": "Center Rahma har sine røtter i det marokkanske miljøet i Oslo på begynnelsen av 1990-tallet. I 1992 ble senteret etablert av en liten gruppe ildsjeler. Det første tilholdsstedet var et leid lokale i Grønlandsleiret 17 på Grønland. Selv om lokalet ikke var optimalt for moskédrift og sosiale aktiviteter, fungerte det som senterets base helt frem til 2020."
+      },
+      "move": {
+        "year": "2020",
+        "title": "Ny start på Tveita",
+        "desc": "Etter utbruddet av Covid-19 flyttet Center Rahma til nye leide lokaler på Tveita. Parallelt med dette har senteret i mange år arbeidet for å sikre et permanent tilholdssted."
+      },
+      "permanent": {
+        "year": "2025",
+        "title": "Permanent hjem",
+        "desc": "I 2025 ble dette endelig en realitet da vi kjøpte lokaler i Tvetenveien 152 på Tveita. Når oppussingen er ferdig, vil dette bli vår varige base og møteplass for medlemmer og besøkende."
+      }
+    }
+  },
   "footer": {
     "brand": "Forbinder fellesskapet gjennom tro, utdanning og tjeneste siden 1995.",
     "quickLinks": "Hurtiglenker",

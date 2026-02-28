@@ -2,8 +2,9 @@ import type { Metadata } from 'next';
 import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 import Container from '@/components/ui/Container';
+import AboutIntro from '@/components/heritage/AboutIntro';
+import ServicesGrid from '@/components/heritage/ServicesGrid';
 import TimelineSection from '@/components/heritage/TimelineSection';
-import MissionSection from '@/components/heritage/MissionSection';
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations({ locale: 'no', namespace: 'heritage' });
@@ -11,13 +12,13 @@ export async function generateMetadata(): Promise<Metadata> {
 
   return {
     title: `${t('pageTitle')} — Masjid Rahma`,
-    description: t('foundation.desc'),
+    description: t('intro.desc'),
     alternates: {
       canonical: `${baseUrl}/heritage`,
     },
     openGraph: {
       title: `${t('pageTitle')} — Masjid Rahma`,
-      description: t('foundation.desc'),
+      description: t('intro.desc'),
       url: `${baseUrl}/heritage`,
       siteName: 'Masjid Rahma',
       locale: 'nb_NO',
@@ -26,7 +27,7 @@ export async function generateMetadata(): Promise<Metadata> {
     twitter: {
       card: 'summary_large_image',
       title: `${t('pageTitle')} — Masjid Rahma`,
-      description: t('foundation.desc'),
+      description: t('intro.desc'),
     },
   };
 }
@@ -36,7 +37,7 @@ export default function HeritagePage() {
   return (
     <main className="min-h-screen pt-32 pb-20">
       <Container>
-        {/* Header */}
+        {/* Page Header */}
         <header className="text-center mb-20">
           <p className="text-[var(--color-text-muted)] mb-2">{t('subtitle')}</p>
           <h1 className="text-4xl md:text-6xl font-bold text-[var(--color-text)] font-[family-name:var(--font-display)]">
@@ -44,11 +45,14 @@ export default function HeritagePage() {
           </h1>
         </header>
 
-        {/* Timeline */}
-        <TimelineSection />
+        {/* About Intro */}
+        <AboutIntro />
 
-        {/* Mission */}
-        <MissionSection />
+        {/* Services Grid */}
+        <ServicesGrid />
+
+        {/* History Timeline */}
+        <TimelineSection />
       </Container>
     </main>
   );
